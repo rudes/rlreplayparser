@@ -1,0 +1,22 @@
+<body>
+<script>
+var Replay = require('rlreplayparser');
+function parse_replays(e) {
+    var replays = e.target.files;
+    if (replays.length === 0) {
+        return
+    }
+    for (var i=0; i<replays.length; i++) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+            var rep = Replay.parse(e.target.result);
+            console.log(rep.data['header']['Id']);
+        };
+
+        reader.readAsBinaryString(replays[i]);
+    }
+}
+</script>
+    <input id="replays" onchange="parse_replays(event)" type="file" accept=".replay" multiple/><br>
+</body>
